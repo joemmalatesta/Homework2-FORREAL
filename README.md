@@ -1,13 +1,14 @@
 # Word Embeddings NLP 
-__To run__
+**__To run__**
 - We do not need to train models again since they're included here
 - pip install gensim wefe
 - python main.py
+(note my code is split into sections with each one building off of the last. All but the last are commented out to shorten runtime but work by themselves.)
 
 ## Embeddings
 The two variations of embeddings I used were Continuous bag of words and Skip-gram models trained by the Gensim library. What I initially noticed is the time it took to train such small word embeddings. The outputs of each embedding trained on 3000 wikipedia articles took 30 minutes to train and only came out to about 17mb. Comparing this to the pre-trained models I downloaded, I cannot imagine how much time it would take for embeddings of 1GB+ to be trained by similar methods. The CBOW and SG models that I trained only differed in the setting SG=1/0 being how they are trained. Otherwise, the parameters are the same. The queries and their responses from each model are below. For similar words, I tried finding bias in my own trained models which showed slightly in the CBOW model when similar words to 'gay' were output. Obviously the larger, pre trained models were much more accurate, but it was interesting to see that the CBOW model that I trained was confidently wrong often which we see in many consumer models. It confidently gave me incorrect analogies and similar words. Otherwise, much of the output was expected.
 
-__Results__
+**__Results__**
 Words similar to 'piano':
 - CBOW: [('instrument', 0.9151349663734436), ('performed', 0.9009426832199097), ('dance', 0.8888988494873047), ('character', 0.886135458946228), ('romantic', 0.8851908445358276), ('plays', 0.8816924095153809), ('comedies', 0.8808860182762146), ('stringed', 0.8759132623672485), ('sonatas', 0.8744109869003296), ('quartet', 0.8739439249038696)]   
 - SG: [('concertos', 0.9160712957382202), ('instrument', 0.9046199321746826), ('saxophone', 0.8973535299301147), ('violin', 0.8927489519119263), ('flute', 0.8566170334815979), ('harpsichord', 0.8497025966644287), ('beethoven', 0.8479941487312317), ('haydn', 0.8478628993034363), ('symphonies', 0.8293575048446655), ('oboe', 0.8280911445617676)]  
@@ -42,11 +43,15 @@ Man/Woman similarity:
 
 
 ## Bias
-I extended the WEAT model from WEFE. In doing so, I reran the calculations 
-![Sentiment distribution of Religious groups](https://github.com/joemmalatesta/NLP-Homework-2/blob/main/relgion.png)
+I extended the WEAT model from WEFE. Initially, I tested with provided RNSB words Swedish, irish, mexican, etc. To extend on this and see the bias in another common topic known to have bias or conflict in large corpus', I used religious terms split into religious and non-religious groups. While all non-religious groups all had a generally negative sentiment, I was surprised to find out how much variation there was among religious groups. It seemed as though the more popularly spoken about religions tended to have a more negative sentiment. I wonder if this is because they are genuinely seen in a more negative light or if it is because there is more data in the corpus about them.
 ![Sentiment distribution of Religious groups](./relgion.png)
 
 ## Classification
+For text classification, I used sentiment analysis and compared two models. I compared the F1 and Model accuracy of Bag-of-Words (BoW) and averaged word embeddings. The BoW model outperformed the embeddings-based model on both tests. This is most likely due to the averaging nature of embeddings diluting the meaningful semantic information used in sentiment classification. It is also possibly due to a mismatch between the training corpus for the embeddings and the sentiment analysis task. The scores I got for each are as follows.
 
+BoW Model Accuracy: 0.815, F1-Score: 0.8082901554404145
+Embeddings Model Accuracy: 0.7, F1-Score: 0.6739130434782609
 
 ## Reflection
+This assignment was very thorough and taught me many different use cases and shortcomings of word embeddings. I found that this assignment took the longest out of any so far. I don't mean that necessarily only in time to complete, but many of the step had me waiting for 30+ minutes for training, downloading, and each subsequent run took 5 or so minutes just to fetch the data (also the reason why you don't see the pre trained models in this repo). Completing this assignment opened my mind to the sheer amount of computation necessary for training LLM's and why they are making CPU's specifically for computing LLM calculations. Even only training 17mb worth of data took me 30 minutes. I cannot imaging the time spent training models the size of GPT and the like. While videos and chatGPT helped me understand the scope of the project much better, I had a hard time understanding what to download and where to download pre trained models. (perhaps in the future these pre trained models to download should be links you provide instead of giving freedom. I can't image it would make a huge difference and it may help ease some confusion.) Overall, this assignment taught me about different kinds of word embeddings, how each kind works, how much the size of each matters, where they excel, and it also helped build foundational knowledge for larger applications.
+
