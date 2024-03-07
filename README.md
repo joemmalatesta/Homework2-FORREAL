@@ -43,7 +43,8 @@ Man/Woman similarity:
 
 ## Bias
 I extended the WEAT model from WEFE. In doing so, I reran the calculations 
-!(Sentiment distribution of Religious groups)[https://github.com/joemmalatesta/NLP-Homework-2/blob/main/relgion.png]
+![Sentiment distribution of Religious groups](https://github.com/joemmalatesta/NLP-Homework-2/blob/main/relgion.png)
+![Sentiment distribution of Religious groups](./relgion.png)
 
 ## Classification
 
